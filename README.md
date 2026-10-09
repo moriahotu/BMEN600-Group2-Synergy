@@ -59,3 +59,14 @@ Every task has leads and reviewers, and each member leads some tasks and reviews
 | Validation and Evaluation | Asma | Neriah and Ukeme independently check the outputs | How we confirm the results are not misleading |
 | Interpretation | Neriah, Ukeme | Nazanin, Asma | The biological and clinical meaning of the results and the limits of surveillance data |
 | Documentation and Reproducibility | Asma, Neriah | Nazanin | How to get from the raw FDA data to our figures using this repository |
+
+### 9 October 2026 — Preliminary analysis
+
+- Created an initial comparison of the top 10 coded problems in silicone-only and saline-only breast implant reports received by FDA MAUDE in 2025.
+- Uploaded the plotting script, comparison table, and graph in PNG and PDF formats.
+- Selected the top 10 problems across both implant groups combined. Percentages use reports with at least one nonblank problem code within each group.
+- Excluded information-status codes from the ranking and reports involving both implant types from the comparison.
+
+**Interpretation:** Results describe submitted reports, not complication risks among implant recipients. Each report can include multiple problems.
+
+**Next steps:** Review the graph and data quality, examine related literature, and refine the final research question.
