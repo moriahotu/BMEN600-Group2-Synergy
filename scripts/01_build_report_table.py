@@ -25,7 +25,7 @@ Output
 ------
 data/processed/report_table_<YEARS>.csv
 
-If Asma's merged file for a year (breast_implant_merged_<YEAR>.csv) is in
+If the team's merged file for a year (breast_implant_merged_<YEAR>.csv) is in
 data/raw, the script also checks that both files agree on the report IDs,
 implant groups and problem codes for that year.
 
@@ -118,30 +118,30 @@ print(pd.crosstab(report["REPORT_YEAR"], report["IMPLANT_TYPE"], margins=True).t
 print(f"Reports with no problem code: {(report['N_PROBLEM_CODES'] == 0).sum():,}")
 print(f"Saved: {out.relative_to(REPO)}")
 
-# ---------------- 5. Cross-check against Asma's merged files ----------------
+# ---------------- 5. Cross-check against the team's merged files ----------------
 for year in YEARS:
     merged_path = RAW / f"breast_implant_merged_{year}.csv"
     if not merged_path.exists():
         continue
-    asma = pd.read_csv(merged_path, dtype=str, keep_default_na=False,
+    merged = pd.read_csv(merged_path, dtype=str, keep_default_na=False,
                        encoding="utf-8-sig").set_index("MDR_REPORT_KEY")
     ours = report[report["REPORT_YEAR"] == year].set_index("MDR_REPORT_KEY")
 
-    same_ids = set(asma.index) == set(ours.index)
-    same_groups = same_ids and (asma["IMPLANT_TYPE"] == ours.loc[asma.index, "IMPLANT_TYPE"]).all()
+    same_ids = set(merged.index) == set(ours.index)
+    same_groups = same_ids and (merged["IMPLANT_TYPE"] == ours.loc[merged.index, "IMPLANT_TYPE"]).all()
 
-    # Asma's file can include columns for codes not seen in this year's reports.
+    # The merged file can include columns for codes not seen in this year's reports.
     # Those columns must be all zero. The shared columns must match exactly.
-    asma_problem_cols = [c for c in asma.columns
+    merged_problem_cols = [c for c in merged.columns
                          if c.startswith("PROBLEM_") and c[8:].isdigit()]
     ours_used = [c for c in problem_cols if ours[c].sum() > 0]
-    shared = sorted(set(asma_problem_cols) & set(problem_cols))
-    asma_only = sorted(set(asma_problem_cols) - set(problem_cols))
+    shared = sorted(set(merged_problem_cols) & set(problem_cols))
+    merged_only = sorted(set(merged_problem_cols) - set(problem_cols))
     same_codes = (
         same_ids
-        and set(ours_used) <= set(asma_problem_cols)
-        and asma[asma_only].astype(int).sum().sum() == 0
-        and (asma[shared].astype(int).values == ours.loc[asma.index, shared].values).all()
+        and set(ours_used) <= set(merged_problem_cols)
+        and merged[merged_only].astype(int).sum().sum() == 0
+        and (merged[shared].astype(int).values == ours.loc[merged.index, shared].values).all()
     )
 
     print(f"\nCross-check with breast_implant_merged_{year}.csv")
