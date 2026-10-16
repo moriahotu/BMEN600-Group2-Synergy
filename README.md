@@ -31,6 +31,19 @@ The FDA files and our extracted CSVs are not stored here. The narrative file alo
 
 The file names and study years are set in `scripts/config.py`.
 
+**Access for reviewers:** the extracted CSV files are available from the team on request. They can also be rebuilt from the FDA files `mdrfoithru2025.zip`, `device2024.zip`, `device2025.zip`, `patientthru2025.zip`, `patientproblemcode_thru2025.zip` and `foitext2024.zip`/`foitext2025.zip` by keeping records whose device product code is `FTR` or `FWM` and linking them by `MDR_REPORT_KEY`.
+
+## Where the midterm report's outputs come from
+
+| Output in the report | Produced by | File |
+|---|---|---|
+| Bar chart of the 10 most frequently coded patient problems, silicone vs saline | `scripts/02_problem_code_comparison.py` | `results/figures/figure1_top10_problem_codes_2024-2025.png` (numbers in `results/tables/table2_top10_problem_codes_2024-2025.csv`) |
+| Table comparing problem codes with the narrative reason-for-reoperation statement | `scripts/03_reoperation_reason_text.py` | `results/tables/table3_coded_vs_text_reason_2024-2025.csv` |
+| Report characteristics quoted in the text (reporting source, event type, missing dates) | `scripts/02_problem_code_comparison.py` | `results/tables/table1_report_characteristics_2024-2025.csv` |
+| Reason-statement use by manufacturer and year-to-year stability | `scripts/03_reoperation_reason_text.py` | `results/tables/table4_...csv`, `results/tables/table5_...csv` |
+
+File names in `results/` are fixed by the code, so their numbers do not always match the figure and table numbers in the report.
+
 ## How to run
 
 1. Install Python 3.10 or newer.
