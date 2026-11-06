@@ -1,0 +1,9 @@
+Label combination,Silicone,Saline,Silicone %,Saline %
+Biological,28153,3437,45.6,18.8
+Mechanical,19040,11373,30.9,62.1
+Mechanical + Biological,7309,948,11.9,5.2
+None of these,6748,2406,10.9,13.1
+Biological + Systemic,172,49,0.3,0.3
+Systemic,171,74,0.3,0.4
+Mechanical + Systemic,64,20,0.1,0.1
+Mechanical + Biological + Systemic,15,2,0.0,0.0
